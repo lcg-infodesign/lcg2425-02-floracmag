@@ -4,22 +4,30 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(30);
   noFill();
-  stroke("black");
-  strokeWeight(1);
+  strokeWeight(2);
 
-  let numDrawings = 5; // Número total de desenhos
-  let spacing = width / (numDrawings + 1); // Ajusta a distância para que caiba na tela
-  let totalWidth = (numDrawings - 1) * spacing; // Largura total ocupada pelos desenhos
+  let numLines = 5; // Número total de linhas
+  let numDrawings = 8; // Número de desenhos por linha
+  let spacingX = width / (numDrawings + 1); // Distância horizontal para os desenhos
+  let spacingY = height / (numLines + 1); // Distância vertical para as linhas
 
-  // Centraliza o grupo de desenhos na tela
-  translate((width - totalWidth) / 2, height / 2);
-
-  for (let i = 0; i < numDrawings; i++) {
+  for (let i = 0; i < numLines; i++) {
     push();
-    translate(i * spacing, 0); // Desloca horizontalmente para cada desenho
-    drawLines(random(1, 2), 100, 3);
+    translate(0, (i + 1) * spacingY); // Desloca verticalmente para cada linha
+
+    for (let j = 0; j < numDrawings; j++) {
+      push();
+      translate((j + 1) * spacingX, 0); // Desloca horizontalmente para cada desenho
+      
+      // Define a cor do stroke de forma aleatória
+      stroke(random(255), random(255), random(255));
+      
+      drawLines(random(1, 2), 100, 3);
+      pop();
+    }
+
     pop();
   }
 }
@@ -39,6 +47,3 @@ function drawLine(side = 100, points = 3) {
   }
   endShape();
 }
-
-
-
